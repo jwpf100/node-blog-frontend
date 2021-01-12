@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
@@ -33,22 +33,9 @@ const testData = [
   }
 ]
 
-
-async function getBlogs() {
-  try {
-    const response = await axios.get(`http://localhost:4000/api/blogposts`);
-    console.log(response);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-getBlogs()
-
-
 const BlogList = props => (
   <div>
-    {props.blogArray.map(blog => <Blog blogInfo={blog} />)}
+    {props.blogArray.map(blog => <Blog key={blog._id} blogInfo={blog} />)}
   </div>
 )
 
@@ -63,9 +50,39 @@ const Blog = props => {
   )
 }
 
+const App = props => {
+
+  const [blogPosts, getBlogPosts] = useState([]);
+
+  useEffect(() => {
+    ///This is getting all blogpost info when the page loads.  We only need to do this once. 
+    if (blogPosts.length > 0 ) {
+      return
+    } else {
+    
+    const allBlogPostsURL = `http://localhost:4000/api/blogposts`
+  
+    const getAllBlogPosts = () => {
+      axios.get(`${allBlogPostsURL}`)
+        .then((response) => {
+          const allBlogPosts = response.data;
+          getBlogPosts(allBlogPosts)
+    })
+    .catch(error => console.error(`Error: ${error}`));
+    }
+    getAllBlogPosts();
+  }
+  }, [blogPosts.length, getBlogPosts])
+
+return (
+  <BlogList blogArray={blogPosts}/>
+)
+
+}
+
 ReactDOM.render(
   <div>
-    <BlogList blogArray={testData}/>
+    <App />
   </div>,
   document.getElementById('root')
 );
