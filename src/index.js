@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
+
 const axios = require('axios');
 
 const testData = [
@@ -34,7 +35,7 @@ const testData = [
 ]
 
 const BlogList = props => (
-  <div>
+  <div className='row text-center pb-5'>
     {props.blogArray.map(blog => <Blog key={blog._id} blogInfo={blog} />)}
   </div>
 )
@@ -43,11 +44,35 @@ const BlogList = props => (
 const Blog = props => {
   const blogData = props.blogInfo
   return (
-    <div>
-      <div>{blogData.title}</div>
-      <div>{blogData.summary}</div>
+    <div className='col-lg-4 px-4 pb-2 d-flex flex-column'>
+      <h3 className='pb-2'>{blogData.title}</h3>
+      <p className='blog-trailer'>{blogData.summary}</p>
     </div>
   )
+}
+
+const BlogHeader = props => {
+  const blogData = props.blogArray
+  console.log(blogData)
+  if (blogData !== undefined) {
+  return (
+    <div className='row text-center pb-5'>
+      <div className='col-lg-12 px-4 pb-2 d-flex flex-column'>
+        <h1>Temporary</h1>
+        <h3 className='pb-2'>{blogData.title}</h3>
+        <p className='blog-trailer'>{blogData.summary}</p>
+      </div>
+    </div>
+  )
+      } else {
+        return (
+          <div className='row text-center pb-5'>
+          <div className='col-lg-12 px-4 pb-2 d-flex flex-column'>
+            <h1>Loading</h1>
+          </div>
+        </div>
+        )
+      }
 }
 
 const App = props => {
@@ -75,7 +100,10 @@ const App = props => {
   }, [blogPosts.length, getBlogPosts])
 
 return (
-  <BlogList blogArray={blogPosts}/>
+  <>
+    <BlogHeader blogArray={blogPosts[0]}/>
+    <BlogList blogArray={blogPosts}/>
+  </>
 )
 
 }
