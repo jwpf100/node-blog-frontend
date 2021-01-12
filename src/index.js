@@ -5,38 +5,38 @@ import reportWebVitals from './reportWebVitals';
 
 const axios = require('axios');
 
-const testData = [
-  {
-    _id:"5f97d9696c94ef5b0a6a5c47",
-    title:"New Blog Post Title 1",
-    author:
-      {
-        _id:"5f970506ac7954477e5f6fa4",
-        first_name:"Joe",
-        family_name:"Fletcher",
-        date_of_birth:"1983-09-01T00:00:00.000Z",
-        __v:0
-      },
-    summary:"New Blog Post Summary 1"
-  },
-  {
-    _id:"5f97d98b0b18cc5b2db95bef",
-    title:"New Blog Post Title 2",
-    "author":
-      {
-        "_id":"5f970506ac7954477e5f6fa4",
-        first_name:"Joe",
-        family_name:"Fletcher",
-        date_of_birth:"1983-09-01T00:00:00.000Z",
-        __v:0
-      },
-    summary:"New Blog Post Summary 2"
-  }
-]
+// const testData = [
+//   {
+//     _id:"5f97d9696c94ef5b0a6a5c47",
+//     title:"New Blog Post Title 1",
+//     author:
+//       {
+//         _id:"5f970506ac7954477e5f6fa4",
+//         first_name:"Joe",
+//         family_name:"Fletcher",
+//         date_of_birth:"1983-09-01T00:00:00.000Z",
+//         __v:0
+//       },
+//     summary:"New Blog Post Summary 1"
+//   },
+//   {
+//     _id:"5f97d98b0b18cc5b2db95bef",
+//     title:"New Blog Post Title 2",
+//     "author":
+//       {
+//         "_id":"5f970506ac7954477e5f6fa4",
+//         first_name:"Joe",
+//         family_name:"Fletcher",
+//         date_of_birth:"1983-09-01T00:00:00.000Z",
+//         __v:0
+//       },
+//     summary:"New Blog Post Summary 2"
+//   }
+// ]
 
 const BlogList = props => (
   <div className='row text-center pb-5'>
-    {props.blogArray.map(blog => <Blog key={blog._id} blogInfo={blog} />)}
+    {props.blogArray.map(blog => <Blog key={blog._id} blogInfo={blog} image_url={props.image_url} />)}
   </div>
 )
 
@@ -45,6 +45,7 @@ const Blog = props => {
   const blogData = props.blogInfo
   return (
     <div className='col-lg-4 px-4 pb-2 d-flex flex-column'>
+      <img className="rounded-circle mb-4 bg-white align-self-center" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" />
       <h3 className='pb-2'>{blogData.title}</h3>
       <p className='blog-trailer'>{blogData.summary}</p>
     </div>
@@ -58,6 +59,7 @@ const BlogHeader = props => {
   return (
     <div className='row text-center pb-5'>
       <div className='col-lg-12 px-4 pb-2 d-flex flex-column'>
+        <img className="rounded-circle mb-4 bg-white align-self-center" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" />
         <h1>Temporary</h1>
         <h3 className='pb-2'>{blogData.title}</h3>
         <p className='blog-trailer'>{blogData.summary}</p>
@@ -99,10 +101,12 @@ const App = props => {
   }
   }, [blogPosts.length, getBlogPosts])
 
+const image_url = 'images/blog/'
+
 return (
   <>
-    <BlogHeader blogArray={blogPosts[0]}/>
-    <BlogList blogArray={blogPosts}/>
+    <BlogHeader blogArray={blogPosts[0]} image_url={image_url}/>
+    <BlogList blogArray={blogPosts} image_url={image_url}/>
   </>
 )
 
