@@ -35,17 +35,38 @@ const axios = require('axios');
 // ]
 
 const BlogList = props => (
-  <div className='row text-center pb-5'>
-    {props.blogArray.map(blog => <Blog key={blog._id} blogInfo={blog} image_url={props.image_url} />)}
-  </div>
+  <>
+    <div className='row mb-2'>
+      {props.blogArray.map(blog => <FeaturedPost key={blog._id} blogInfo={blog} image_url={props.image_url} />)}
+    </div>
+  </>
 )
 
+const FeaturedPost = props => {
+  const blogData = props.blogInfo
+  const tagList = blogData.tags.map(tag => tag.name)
+  console.log(tagList)
+  return (
+  <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-column mb-4 shadow-sm h-md-250 position-relative justify-content-center align-items-center text-center">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{blogData.title}</h3>
+          <img className="rounded-circle bg-white align-self-center" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" /> 
+          <strong class="d-inline-block mb-2 text-muted">{tagList.join(' / ')}</strong>
+          <div class="mb-1 text-muted">{blogData.post_date}</div>
+          <p class="mb-auto">{blogData.summary}</p>
+          <a href="#" class="stretched-link">Continue reading</a>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const Blog = props => {
   const blogData = props.blogInfo
   return (
     <div className='col-lg-4 px-4 pb-2 d-flex flex-column'>
-      <img className="rounded-circle mb-4 bg-white align-self-center" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" />
+      <img className="rounded-circle bg-white align-self-center" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" />
       <h3 className='pb-2'>{blogData.title}</h3>
       <p className='blog-trailer'>{blogData.summary}</p>
     </div>
@@ -57,14 +78,16 @@ const BlogHeader = props => {
   console.log(blogData)
   if (blogData !== undefined) {
   return (
-    <div className='row text-center pb-5'>
-      <div className='col-lg-12 px-4 pb-2 d-flex flex-column'>
-        <img className="rounded-circle mb-4 bg-white align-self-center" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" />
-        <h1>Temporary</h1>
-        <h3 className='pb-2'>{blogData.title}</h3>
-        <p className='blog-trailer'>{blogData.summary}</p>
+      <div class="p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
+        <div className="order-md-1 col-md-6 p-0 d-flex justify-content-center align-items-center">
+          <img className="rounded-circle bg-light" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" height='200px' width='200px'/>
+        </div>
+        <div class="order-md-0 col-md-6 px-0">
+          <h1 class="display-4 font-italic text-dark">{blogData.title}</h1>
+          <p class="lead text-dark my-3">{blogData.summary}</p>
+          <p class="lead mb-0"><a href="#" class="text-dark fw-bold">Continue reading...</a></p>
+        </div>
       </div>
-    </div>
   )
       } else {
         return (
@@ -75,6 +98,10 @@ const BlogHeader = props => {
         </div>
         )
       }
+}
+
+const Button = props => {
+
 }
 
 const App = props => {
@@ -98,6 +125,7 @@ const App = props => {
     .catch(error => console.error(`Error: ${error}`));
     }
     getAllBlogPosts();
+    console.log('Called UseEffect')
   }
   }, [blogPosts.length, getBlogPosts])
 
@@ -105,7 +133,7 @@ const image_url = 'images/blog/'
 
 return (
   <>
-    <BlogHeader blogArray={blogPosts[0]} image_url={image_url}/>
+    <BlogHeader blogArray={blogPosts[2]} image_url={image_url}/>
     <BlogList blogArray={blogPosts} image_url={image_url}/>
   </>
 )
