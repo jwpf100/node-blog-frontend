@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-
+import { Link, BrowserRouter as Router, Route } from "react-router-dom";
+import {useLocation} from 'react-router-dom';
 
 const axios = require('axios');
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 
 const ReadMoreButton = props => {
   return (
@@ -46,7 +58,13 @@ const FeaturedPost = props => {
           <div className="mb-1 text-muted">{blogData.post_date}</div>
           <p className="mb-auto">{blogData.summary}</p>
           {/* <a href="#" className="stretched-link"></a> */}
-          <ReadMoreButton onClick={props.onClick} blogSelected={blogData}/>
+          <Link to={{
+            pathname:`/${blogData._id}`, 
+            transferData: {
+              blogData:blogData, 
+              image_url:props.image_url,
+            }
+            }}>Read More...</Link>
         </div>
       </div>
     </div>
@@ -64,7 +82,13 @@ const BlogHeader = props => {
         <div className="order-md-0 col-md-6 px-0">
           <h1 className="display-4 font-italic text-dark">{blogData.title}</h1>
           <p className="lead text-dark my-3">{blogData.summary}</p>
-          <ReadMoreButton onClick={props.onClick} blogSelected={blogData}/>
+          <Link to={{
+            pathname:`/${blogData._id}`, 
+            transferData: {
+              blogData:blogData, 
+              image_url:props.image_url,
+            }
+            }}>Read More...</Link>
         </div>
       </div>
   )
@@ -80,46 +104,51 @@ const BlogHeader = props => {
 }
 
 
+const BlogHomeLayout = props => {
 
-const MainPage = props => {
+// console.log(props.allBlogPosts)
 
 return (
   <>
-    <BlogHeader blogArray={props.allBlogPosts[2]} image_url={props.imageUrl} onClick={props.onClick}/>
-    <BlogList blogArray={props.allBlogPosts} image_url={props.imageUrl} onClick={props.onClick}/>
+    <BlogHeader blogArray={props.allBlogPosts[2]} image_url={props.image_url} onClick={props.onClick}/>
+    <BlogList blogArray={props.allBlogPosts} image_url={props.image_url} onClick={props.onClick}/>
   </>
 )
 
 }
 
 
-const BlogPage = props => {
+const BlogPage = (props) => {
+
+  const blogData = props.location.transferData.blogData
+  const image_url = props.location.transferData.image_url
+
   return (
 
     <>
     <div className="p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
-      <div className="order-md-1 col-md-6 p-0 d-flex justify-content-center align-items-center">
-        <img className="rounded-circle bg-light" src={`${props.imageUrl}${props.selectedBlogPost.image_filename}`} alt="Generic placeholder" height='200px' width='200px'/>
+      <div className="order-md-1 col-md-6 p-0 d-flex justify-content-center align-items-center">       
+        <img className="rounded-circle bg-light" src={`${image_url}${blogData.image_filename}`} alt="Generic placeholder" height='200px' width='200px'/>
       </div>
       <div className="order-md-0 col-md-6 px-0">
-        <h1 className="display-4 font-italic text-dark">{props.selectedBlogPost.title}</h1>
-      {/* <p className="lead text-dark my-3">{props.selectedBlogPost.summary}</p>
-      <p className="lead mb-0"><a href="#" className="text-dark fw-bold">Continue reading...</a></p> */}
+        <h1 className="display-4 font-italic text-dark">{blogData.title}</h1>
       </div>
     </div>
     <div className="p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
       <div className="order-md-0 col px-0">
-        <p className="lead text-dark my-3">{props.selectedBlogPost.body}</p>
+        <p className="lead text-dark my-3">{blogData.body}</p>
       </div>
     </div>
-    <BackMainPageButton onClick={props.onClick} />
+    <Link to={{
+            pathname:`/`, 
+            }}>Back to Blog Home</Link>
     </>
   )
 }
 
 const BlogApp = props => {
   const [blogPostSelected, setblogPostSelected] = useState({});
-  const [blogPosts, getBlogPosts] = useState([]);
+  const [blogPosts, setBlogPosts] = useState([]);
 
   useEffect(() => {
     ///This is getting all blogpost info when the page loads.  We only need to do this once. 
@@ -133,14 +162,14 @@ const BlogApp = props => {
       axios.get(`${allBlogPostsURL}`)
         .then((response) => {
           const allBlogPosts = response.data;
-          getBlogPosts(allBlogPosts)
+          setBlogPosts(allBlogPosts)
     })
     .catch(error => console.error(`Error: ${error}`));
     }
     getAllBlogPosts();
     console.log('Called UseEffect')
   }
-  }, [blogPosts.length, getBlogPosts])
+  }, [blogPosts.length, setBlogPosts])
 
 
   //Transact On The State
@@ -175,7 +204,7 @@ const BlogApp = props => {
   return (
       <div>
       {isEmptyObject(blogPostSelected) ? (  
-        <MainPage allBlogPosts={blogPosts} imageUrl={image_url} onClick={handleReadMoreClicked}/>
+        <BlogHomeLayout allBlogPosts={blogPosts} imageUrl={image_url} onClick={handleReadMoreClicked}/>
       ) : (
         <BlogPage selectedBlogPost={blogPostSelected} imageUrl={image_url} onClick={handleBackMainPageButtonClicked}/>
       )}
@@ -184,9 +213,83 @@ const BlogApp = props => {
   )
 }
 
+const BlogHomePage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  // Replace set date et.c with set BlogPosts
+  const [data, setData] = useState();
+  const [blogPosts, setBlogPosts] = useState([]); 
+  const [blogPostSelected, setblogPostSelected] = useState({});
+
+  useEffect(() => {
+    
+    const allBlogPostsURL = `http://localhost:4000/api/blogposts`
+    fetch(allBlogPostsURL, {})
+    .then((res) => res.json())
+    .then((response) => {
+      // console.log(response)
+      setBlogPosts(response);
+      // console.log(blogPosts)
+      setIsLoading(false);
+      // console.log(isLoading)
+      // console.log('Called UseEffect')
+    })
+    .catch((error) => console.log(error));
+  }, []);
+    
+  //Transact On The State
+
+  const handleReadMoreClicked = (blogObject) => {
+    window.scrollTo({
+      top:0,
+      //behaviour: 'auto',
+      duration: 0,
+      transition: 'none',
+    })
+    setblogPostSelected(blogObject);
+  }
+
+  const image_url = 'images/blog/'
+
+  return (
+    <>
+      {isLoading ? (
+        <>
+          <h1>Loading</h1>
+        </>
+      ) : (
+        <>
+          <BlogHomeLayout allBlogPosts={blogPosts} image_url={image_url} onClick={handleReadMoreClicked}/>
+        </>
+      )}
+    </>
+  );
+}
+
+const App = () => {
+
+  
+
+
+
+  return (
+    <>
+      <Router>
+          <ScrollToTop />
+          <Route exact path="/" component={BlogHomePage} />
+          <Route
+            path="/:blogId"
+            component={BlogPage}
+          />
+      </Router>
+    </>
+  );
+};
+
+
+
 ReactDOM.render(
   <div>
-    <BlogApp />
+    <App />
   </div>,
   document.getElementById('root')
 );
