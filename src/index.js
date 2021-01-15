@@ -123,9 +123,6 @@ const BlogPage = (props) => {
   const blogData = props.location.transferData.blogData
   const image_url = props.location.transferData.image_url
 
-  console.log(blogData.body)
-  console.log(blogData.body.slice(1 ,-1))
-
   return (
 
     <>
