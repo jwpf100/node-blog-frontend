@@ -123,10 +123,13 @@ const BlogPage = (props) => {
   const blogData = props.location.transferData.blogData
   const image_url = props.location.transferData.image_url
 
+  console.log(blogData.body)
+  console.log(blogData.body.slice(1 ,-1))
+
   return (
 
     <>
-    <div className="p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
+    <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
       <div className="order-md-1 col-md-6 p-0 d-flex justify-content-center align-items-center">       
         <img className="rounded-circle bg-light" src={`${image_url}${blogData.image_filename}`} alt="Generic placeholder" height='200px' width='200px'/>
       </div>
@@ -134,9 +137,8 @@ const BlogPage = (props) => {
         <h1 className="display-4 font-italic text-dark">{blogData.title}</h1>
       </div>
     </div>
-    <div className="p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
-      <div className="order-md-0 col px-0">
-        <p className="lead text-dark my-3">{blogData.body}</p>
+    <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
+      <div className="order-md-0 col px-0 text-dark" dangerouslySetInnerHTML={{ __html: blogData.body.slice(1 ,-1) }}>
       </div>
     </div>
     <Link to={{
