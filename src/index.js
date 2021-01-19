@@ -4,8 +4,6 @@ import reportWebVitals from './reportWebVitals';
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
 import {useLocation} from 'react-router-dom';
 
-const axios = require('axios');
-
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -14,27 +12,6 @@ function ScrollToTop() {
   }, [pathname]);
 
   return null;
-}
-
-
-const ReadMoreButton = props => {
-  return (
-  <button 
-    type="button" 
-    className='btn btn-outline-dark mt-3 mx-auto col-4'
-    onClick={() => props.onClick(props.blogSelected)}
-  >Read More</button>
-  )
-}
-
-const BackMainPageButton = props => {
-  return (
-    <button 
-      type="button" 
-      className='btn btn-outline-dark mt-3 mx-auto col-4'
-      onClick={() => props.onClick(() => props.onClick)}
-    >Back to Blog Home</button>
-    )
 }
 
 const BlogList = props => (
@@ -103,112 +80,67 @@ const BlogHeader = props => {
       }
 }
 
-
-const BlogHomeLayout = props => {
-
-// console.log(props.allBlogPosts)
-
-return (
-  <>
-    <BlogHeader blogArray={props.allBlogPosts[2]} image_url={props.image_url} onClick={props.onClick}/>
-    <BlogList blogArray={props.allBlogPosts} image_url={props.image_url} onClick={props.onClick}/>
-  </>
-)
-
-}
-
-
 const BlogPage = (props) => {
 
-  const blogData = props.location.transferData.blogData
-  const image_url = props.location.transferData.image_url
+const {
+  params: { blogId }, 
+} = props.match;
 
-  return (
+//Initialise the State
 
-    <>
-    <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
-      <div className="order-md-1 col-md-6 p-0 d-flex justify-content-center align-items-center">       
-        <img className="rounded-circle bg-light" src={`${image_url}${blogData.image_filename}`} alt="Generic placeholder" height='200px' width='200px'/>
-      </div>
-      <div className="order-md-0 col-md-6 px-0">
-        <h1 className="display-4 font-italic text-dark">{blogData.title}</h1>
-      </div>
-    </div>
-    <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
-      <div className="order-md-0 col px-0 text-dark" dangerouslySetInnerHTML={{ __html: blogData.body.slice(1 ,-1) }}>
-      </div>
-    </div>
-    <Link to={{
-            pathname:`/`, 
-            }}>Back to Blog Home</Link>
-    </>
-  )
-}
+const [isLoading, setIsLoading] = useState(true);
+const [blogPost, setBlogPosts] = useState([]); 
 
-const BlogApp = props => {
-  const [blogPostSelected, setblogPostSelected] = useState({});
-  const [blogPosts, setBlogPosts] = useState([]);
+// if(props.location.transferData !== undefined ) {
 
-  useEffect(() => {
-    ///This is getting all blogpost info when the page loads.  We only need to do this once. 
-    if (blogPosts.length > 0 ) {
-      return
-    } else {
-    
-    const allBlogPostsURL = `http://localhost:4000/api/blogposts`
-  
-    const getAllBlogPosts = () => {
-      axios.get(`${allBlogPostsURL}`)
-        .then((response) => {
-          const allBlogPosts = response.data;
-          setBlogPosts(allBlogPosts)
+// }
+
+useEffect(() => {
+
+  if(props.location.transferData !== undefined) {
+   setBlogPosts(props.location.transferData.blogData)
+   setIsLoading(false);
+  } else {
+  const nodeBlogURL = `http://localhost:4000/api/blogpost/`
+  fetch(`${nodeBlogURL}${blogId}`, {})
+    .then((res) => res.json())
+    .then((response) => {
+      setBlogPosts(response);
+      setIsLoading(false);
     })
-    .catch(error => console.error(`Error: ${error}`));
-    }
-    getAllBlogPosts();
-    console.log('Called UseEffect')
-  }
-  }, [blogPosts.length, setBlogPosts])
-
-
-  //Transact On The State
-
-  const handleReadMoreClicked = (blogObject) => {
-    window.scrollTo({
-      top:0,
-      //behaviour: 'auto',
-      duration: 0,
-      transition: 'none',
-    })
-    setblogPostSelected(blogObject);
+    .catch((error) => console.log(error));
   }
 
-  const handleBackMainPageButtonClicked = () => {
-    window.scrollTo({
-      top:0,
-      //behaviour: 'auto',
-      duration: 0,
-      transition: 'none',
-    })
-    setblogPostSelected({});
-  }
+}, [blogId]);
 
   const image_url = 'images/blog/'
 
-  function isEmptyObject(value) {
-    return value && Object.keys(value).length === 0 && value.constructor === Object;
-  }
-
-
   return (
-      <div>
-      {isEmptyObject(blogPostSelected) ? (  
-        <BlogHomeLayout allBlogPosts={blogPosts} imageUrl={image_url} onClick={handleReadMoreClicked}/>
+    <>
+      {isLoading ? (
+        <>
+          <h1>Loading</h1>
+        </>
       ) : (
-        <BlogPage selectedBlogPost={blogPostSelected} imageUrl={image_url} onClick={handleBackMainPageButtonClicked}/>
+        <>
+          <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
+            <div className="order-md-1 col-md-6 p-0 d-flex justify-content-center align-items-center">       
+              <img className="rounded-circle bg-light" src={`${image_url}${blogPost.image_filename}`} alt="Generic placeholder" height='200px' width='200px'/>
+            </div>
+            <div className="order-md-0 col-md-6 px-0">
+              <h1 className="display-4 font-italic text-dark">{blogPost.title}</h1>
+            </div>
+          </div>
+          <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
+            <div className="order-md-0 col px-0 text-dark" dangerouslySetInnerHTML={{ __html: blogPost.body}}>
+            </div>
+          </div>
+          <Link to={{
+                  pathname:`/`, 
+                  }}>Back to Blog Home</Link>
+          </>
       )}
-      </div>   
-      
+    </>
   )
 }
 
@@ -225,27 +157,13 @@ const BlogHomePage = () => {
     fetch(allBlogPostsURL, {})
     .then((res) => res.json())
     .then((response) => {
-      // console.log(response)
       setBlogPosts(response);
-      // console.log(blogPosts)
       setIsLoading(false);
-      // console.log(isLoading)
-      // console.log('Called UseEffect')
     })
     .catch((error) => console.log(error));
   }, []);
     
   //Transact On The State
-
-  const handleReadMoreClicked = (blogObject) => {
-    window.scrollTo({
-      top:0,
-      //behaviour: 'auto',
-      duration: 0,
-      transition: 'none',
-    })
-    setblogPostSelected(blogObject);
-  }
 
   const image_url = 'images/blog/'
 
@@ -257,7 +175,8 @@ const BlogHomePage = () => {
         </>
       ) : (
         <>
-          <BlogHomeLayout allBlogPosts={blogPosts} image_url={image_url} onClick={handleReadMoreClicked}/>
+          <BlogHeader blogArray={blogPosts[2]} image_url={image_url} />
+          <BlogList blogArray={blogPosts} image_url={image_url} />
         </>
       )}
     </>
@@ -265,10 +184,6 @@ const BlogHomePage = () => {
 }
 
 const App = () => {
-
-  
-
-
 
   return (
     <>
