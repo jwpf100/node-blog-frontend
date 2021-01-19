@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
+
+import BlogDetailPage from './BlogDetailPage'
+import BlogHomePage from './BlogHomePage'
+
+//Function below is added so that on longer blog posts the window doesn't remain scrolled down the screen when switching screens.
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
 }
+
+const App = () => {
+
+  return (
+    <>
+      <Router>
+          <ScrollToTop />
+          <Route exact path="/" component={BlogHomePage} />
+          <Route
+            path="/:blogId"
+            component={BlogDetailPage}
+          />
+      </Router>
+    </>
+  );
+};
 
 export default App;
