@@ -7,7 +7,7 @@ const BlogHeader = props => {
   const tagList = blogData.tags.map(tag => tag.name)
 
   return (
-      <div className="p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
+      <div className="position-relative p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
         <div className="order-md-1 col-md-6 d-flex justify-content-center align-items-center">
           <img className="w-75 h-auto bg-light rounded" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" />
         </div>
