@@ -16,13 +16,23 @@ const BlogHomePage = () => {
     fetch(allBlogPostsURL, {})
     .then((res) => res.json())
     .then((response) => {
-      setBlogPosts(response);
+      setBlogPosts(sortPostsMostRecent(response));
       setIsLoading(false);
     })
     .catch((error) => console.log(error));
   }, []);
-    
+  
   //Transact On The State
+
+
+  //Functions
+
+  //Arrange items by date - most recent first
+  const sortPostsMostRecent = (array) => array.sort((a, b) => {
+  let c = new Date(a.post_date);
+  let d = new Date(b.post_date);
+  return d - c;
+})
 
   return (
     <>
