@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { DateTime } from "luxon";
 
 const BlogDetailPage = (props) => {
 
@@ -32,27 +33,41 @@ const BlogDetailPage = (props) => {
   
   }, [props.location.transferData, blogId]);
   
+  //Transact on State
+
+  let tagList;
+  if(!isLoading) {
+     tagList = blogPost.tags.map(tag => tag.name);
+  }
+
+
     return (
       <>
         {!isLoading ? 
           (
             <>
-              <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
-                <div className="order-md-1 col-md-6 p-0 d-flex justify-content-center align-items-center">       
-                  <img className="rounded-circle bg-light" src={`${image_url}${blogPost.image_filename}`} alt="Generic placeholder" height='200px' width='200px'/>
+              <div className="container-fluid p-3 p-md-4 mb-4 text-white rounded d-flex flex-column justify-content-center align-items-center">
+                <div className="h-100 col-lg-8 py-mid-4 d-flex flex-column align-items-start">
+                  <h1 className="display-5 font-italic text-dark">{blogPost.title}</h1>
+                    <div className='w-100 mt-auto d-flex flex-row justify-content-between'> 
+                      <i style={{color: '#f7882f'}} className="">{blogPost.author.first_name} {blogPost.author.family_name}</i>
+                      <i className="text-muted mb-0">{DateTime.fromISO(blogPost.post_date).toLocaleString(DateTime.DATE_MED)}</i>
+                    </div>
+                  <p className="lead text-dark my-3">{blogPost.summary}</p>
                 </div>
-                <div className="order-md-0 col-md-6 px-0">
-                  <h1 className="display-4 font-italic text-dark">{blogPost.title}</h1>
+                <div className="col-lg-8 d-flex justify-content-center">
+                  <img className="py-md-3 w-75 h-auto bg-light rounded-circle mb-3" src={`${image_url}${blogPost.image_filename}`} alt="Generic placeholder" />
+                </div>
+                <div className="order-md-0 col-lg-8 px-0 text-dark" dangerouslySetInnerHTML={{ __html: blogPost.body}}>
+                </div>
+                <div className='col-lg-8 pt-3 d-flex flex-column justify-content-between'> 
+                  <i style={{color: '#f7882f'}} className="">Tags: {tagList.join(' / ')}</i>
+                  <Link className="w-100 my-3 text-muted text-left text-decoration-none" to={{
+                    pathname:`/`, 
+                  }}>Back to Blog Home</Link>
                 </div>
               </div>
-              <div className="p-4 p-md-5 mb-4 text-dark rounded bg-light d-flex flex-column flex-md-row">
-                <div className="order-md-0 col px-0 text-dark" dangerouslySetInnerHTML={{ __html: blogPost.body}}>
-                </div>
-              </div>
-              <Link to={{
-                      pathname:`/`, 
-                      }}>Back to Blog Home</Link>
-              </>
+            </>
           )
           : null 
         }
