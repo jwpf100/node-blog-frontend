@@ -14,7 +14,7 @@ const FeaturedPost = props => {
           <img className="rounded-circle bg-white align-self-center mb-3" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" /> 
           <h3 className="mb-0 pb-3 text-center">{blogData.title}</h3>
           <p className="mb-0 pb-2">{blogData.summary}</p>
-          <Link className="mt-autostretched-link pb-2 text-muted text-decoration-none"to={{
+          <Link className="mt-auto stretched-link pb-2 text-muted text-decoration-none"to={{
             pathname:`/${blogData._id}`, 
             transferData: {
               blogData:blogData, 
