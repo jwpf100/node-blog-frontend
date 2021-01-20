@@ -14,7 +14,7 @@ const FeaturedPost = props => {
           <img className="rounded-circle bg-white align-self-center mb-3" src={`${props.image_url}${blogData.image_filename}`} alt="Generic placeholder" width="150" height="150" /> 
           <h3 className="mb-0 pb-3 text-center">{blogData.title}</h3>
           <p className="mb-0 pb-2">{blogData.summary}</p>
-          <Link className="stretched-link pb-2 text-muted text-decoration-none"to={{
+          <Link className="mt-autostretched-link pb-2 text-muted text-decoration-none"to={{
             pathname:`/${blogData._id}`, 
             transferData: {
               blogData:blogData, 
@@ -22,8 +22,8 @@ const FeaturedPost = props => {
             }
             }}>Read More...</Link>
           <div className='mt-auto d-flex flex-row justify-content-between'> 
-            <i className="text-muted">{tagList.join(' / ')}</i>
-            <i className="mb-0 text-muted">{DateTime.fromISO(blogData.post_date).toLocaleString(DateTime.DATE_MED)}</i>
+            <i style={{color: '#f7882f'}} className="">{tagList.join(' / ')}</i>
+            <i className="">{DateTime.fromISO(blogData.post_date).toLocaleString(DateTime.DATE_MED)}</i>
           </div>
         </div>
       </div>
