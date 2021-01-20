@@ -39,7 +39,7 @@ const BlogHomePage = () => {
       { !isLoading ? 
         (
           <>
-            <BlogHeader blogArray={blogPosts[2]} image_url={image_url} />
+            <BlogHeader blogArray={blogPosts[0]} image_url={image_url} />
             <BlogList blogArray={blogPosts} image_url={image_url} />
           </>
         )
