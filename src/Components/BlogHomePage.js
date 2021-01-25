@@ -12,7 +12,7 @@ const BlogHomePage = () => {
 
   useEffect(() => {
     
-    const allBlogPostsURL = `http://localhost:4000/api/blogposts`
+    const allBlogPostsURL = `https://josephfletcher.co.uk/blog/api/blogposts`
     fetch(allBlogPostsURL, {})
     .then((res) => res.json())
     .then((response) => {
