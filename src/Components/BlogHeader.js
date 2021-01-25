@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 
 const BlogHeader = props => {
   const blogData = props.blogArray
-  const tagList = blogData.tags.map(tag => tag.name)
+  // const tagList = blogData.tags.map(tag => tag.name)
 
   return (
       <div className="position-relative p-4 p-md-5 mb-4 text-white rounded bg-light d-flex flex-column flex-md-row">
