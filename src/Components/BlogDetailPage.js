@@ -63,7 +63,7 @@ const BlogDetailPage = (props) => {
                 <div className='col-lg-8 pt-3 d-flex flex-column justify-content-between'> 
                   <i style={{color: '#f7882f'}} className="">Tags: {tagList.join(' / ')}</i>
                   <Link className="w-100 my-3 text-muted text-left text-decoration-none" to={{
-                    pathname:`/`, 
+                    pathname:`/blog/`, 
                   }}>Back to Blog Home</Link>
                 </div>
               </div>

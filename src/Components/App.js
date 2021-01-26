@@ -23,9 +23,9 @@ const App = () => {
     <>
       <Router>
           <ScrollToTop />
-          <Route exact path="/" component={BlogHomePage} />
+          <Route exact path="/blog/" component={BlogHomePage} />
           <Route
-            path="/:blogId"
+            path="/blog/:blogId"
             component={BlogDetailPage}
           />
       </Router>
