@@ -21,8 +21,8 @@ const BlogDetailPage = (props) => {
     setBlogPosts(props.location.transferData.blogData)
     setIsLoading(false);
     } else {
-    const nodeBlogURL = `https://josephfletcher.co.uk/blog/api/blogpost`
-    fetch(`${nodeBlogURL}${blogId}`, {})
+    const nodeBlogURL = "https://josephfletcher.co.uk/blog/api/blogpost"
+    fetch(`${nodeBlogURL}/${blogId}`, {})
       .then((res) => res.json())
       .then((response) => {
         setBlogPosts(response);
