@@ -15,7 +15,7 @@ const FeaturedPost = props => {
           <h3 className="mb-0 pb-3 text-center">{blogData.title}</h3>
           <p className="mb-0 pb-2">{blogData.summary}</p>
           <Link className="stretched-link pb-2 text-muted text-decoration-none"to={{
-            pathname:`/${blogData._id}`, 
+            pathname:`/blog/${blogData._id}`, 
             transferData: {
               blogData:blogData, 
               image_url:props.image_url,
