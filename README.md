@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+## Blog App - React Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The front end of a blogging app, displaying blogposts using React. Consists of two main pages, the front page displaying summary information for all blogposts, and an individual blogpost page showing the blogpost in full.
 
-## Available Scripts
+Built using React and Bootstrap.  Data comes from API located at http://josephlfletcher.co.uk/blog-backend/api/. Eslint and prettier are set up to ensure code meets acceptable standards. 
 
-In the project directory, you can run:
+Live version hosted on AWS EC2 Instance, served using NginX at my personal domain [josephfletcher.co.uk](https://josephfletcher.co.uk/blog).
 
-### `npm start`
+## Project Status
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This is the MVP.  Functionality to sort blogposts by tag, date, and to search yet to be added. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Project Screen Shot(s)
 
-### `npm test`
+#### Example:   
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation and Setup Instructions
 
-### `npm run build`
+Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Installation:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`npm install`  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To Start Server:
 
-### `npm run eject`
+`npm start`  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To Visit App:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`http://localhost:3000/blog`  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Reflection
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This was a project I undertook while learning React.  I set out to build a simple blog, that would display articles automatically as they are added, with minimal input when it comes to updating the layout.  As such the aim is to allow the user/admin to select the header article, the 4 leading articles, and then the rest will load below.   
 
-## Learn More
+It dovetails with another main project I'm undertaking (essentialcoaching.co.uk) and the next step will be to add this front end to replace the current blog page on that project, and allow the client to update blogposts as and when they like. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+One of the main challenges, or areas that still needs to be addressed is that of security.  Allowing the user to display formatted text in the main body means that currently I'm using the dangerouslySetInnerHTML property which can leave the site open to XSS attacks.  Although in this situation, there is only a single user accessing the backend, and therefore the risk is low, a next step would be to make that part of the process more secure. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Another challenge was getting the routing correct across the server and the static files as in testing I was hosting the react app at the localhost route, but then in production I switched it to /blog.  It won't be a problem next time now I'm clear how it all works, and all the various places I need to update routes, but as a learning exercise it was very valuable. 
 
-### Code Splitting
+I chose to use the `create-react-app` boilerplate to minimize initial setup and invest more time in learning the fundamentals of how react works. In the next iteration I plan on starting from scratch and creating a `webpack.config.js` file to more fully understand the build process.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
