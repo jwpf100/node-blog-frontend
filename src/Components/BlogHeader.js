@@ -15,7 +15,7 @@ const BlogHeader = props => {
           <h1 className="display-5 font-italic text-dark">{blogData.title}</h1>
           <p className="lead text-dark my-3">{blogData.summary}</p>
           <Link className="stretched-link text-decoration-none text-muted" to={{
-            pathname:`/${blogData._id}`, 
+            pathname:`/blog/${blogData._id}`, 
             transferData: {
               blogData:blogData, 
               image_url:props.image_url,
