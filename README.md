@@ -8,7 +8,7 @@ Live version hosted on AWS EC2 Instance, served using NginX at my personal domai
 
 ## Project Status
 
-This is the MVP.  Functionality to sort blogposts by tag, date, and to search yet to be added. 
+This is the MVP.  Need to add navbar and footer, and add functionality to sort blogposts by tag, date, and to search. 
 
 ## Project Screen Shot(s)
 
