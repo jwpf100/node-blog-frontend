@@ -25,5 +25,8 @@ yarn-error.log*
 /remove
 
 #images
-/public/images
-/src/images
+
+
+#misc
+/remove
+/.vscode
