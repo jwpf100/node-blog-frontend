@@ -1,67 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <Main class="container">
-    <!-- xxxxxxxxxxxxxxxxxxx -->
-<!-- xxxxHERO IMAGExxxxx -->
-<!-- xxxxxxxxxxxxxxxxxxx -->
-<!-- <section id="blog-main-cover"></section> -->
-<!-- About me initial text -->
-  <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center bumpdown">
-    <div class="row w-100 align-items-center ">
-      <div class="col-lg-8 offset-lg-2 my-auto text-center">
-        <h2 class="col-lg-12 text-center text-highlight pb-3 text-muted bumpdown">The Essential Blog</h2>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../src/Stylesheets/" />
+  <title>React App</title>
+</head>
+
+<body>
+
+  <!-- ----------------------- -->
+  <!-- ----------------------- -->
+  <!-- NAVIGATION BAR AT TOP -->
+  <!-- ----------------------- -->
+  <!-- ----------------------- -->
+
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-white">
+      <a class="navbar-brand d-flex align align-items-center">
+        <img src="./images/logo/trans-logo.png" width="auto" height="30" alt="" class="mr-1" />
+        ESSENTIAL COACHING
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">About Me</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">How I Can Help</a>
+          </li>
+          <li class="nav-item d-none">
+            <a class="nav-link">Resources</a>
+          </li>
+          <li class="nav-item d-none">
+            <a class="nav-link">FAQs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <main class="container">
+    <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center bumpdown">
+      <div class="row w-100 align-items-center">
+        <div class="col-lg-8 offset-lg-2 my-auto text-center">
+          <h2 class="col-lg-12 text-center text-highlight pb-3 text-muted bumpdown">
+            The Essential Blog
+          </h2>
+        </div>
       </div>
     </div>
-  </div>
     <div id="root"></div>
-  </Main>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  </main>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <!--xxxxxxxxxxxxxxx-->
+  <!-- Footer -->
+  <!--xxxxxxxxxxxxxxx-->
+  <footer>
+    <div class="container-fluid bg-new-secondary border-top footer">
+      <div class="row footer-contact justify-content-center">
+        <div class="col-12 text-center">
+          <label class="lead text-muted pt-3">Contact me</label>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center pb-3">
+        <div class="col-xs-12 col-md-4 col-lg-3 pb-3 text-center">
+          <a type="link" class="text-muted text-decoration-none" href="mailto:joseph.fletcher100@gmail.com"
+            target="_blank"><img src="./images/logos/email.svg" width="64px"></a>
+        </div>
+        <div class="col-xs-12 col-md-4 col-lg-3 pb-3 text-center">
+          <a type="link" class="text-muted text-decoration-none" href="" target="_blank"><img
+              src="./images/logos/phone.png" width="64px"></a>
+        </div>
+        <div class="col-xs-12 col-md-4 col-lg-3 pb-3 text-center">
+          <a href="https://www.linkedin.com/in/joseph-fletcher-25a69818/" target="_blank"><img
+              src="./images/logos/linkedin.svg" width="64px"></a>
+        </div>
+      </div>
+      <div class="row footer-contact justify-content-center align-items-center bg-new-highlight">
+        <div class="text-light footer-copyright text-center py-3">
+          © Essential Coaching
+        </div>
+      </div>
+    </div>
+  </footer>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+  <!--Separate Popper and Bootstrap JS -->
 
-    <!--Separate Popper and Bootstrap JS -->
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+    integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+    crossorigin="anonymous"></script>
+</body>
 
-  </body>
 </html>
